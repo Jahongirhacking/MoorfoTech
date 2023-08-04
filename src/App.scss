@@ -23,13 +23,18 @@
 
   .navbar__logo {
     font-size: 1.8rem;
+
+    @media screen and (max-width: 1000px) {
+      font-size: 1.3rem;
+    }
   }
 
   .navbar__menu {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    gap: 1.8rem;
+    gap: 10px;
+    width: 100%;
     // overflow: auto;
 
     .navbar__list {
@@ -37,20 +42,48 @@
       align-items: center;
       justify-content: space-evenly;
       gap: 1.2rem;
-    }
 
-    .navbar__item {
-      a {
-        display: block;
-        padding: 0.5rem 1rem;
-        background-color: var(--nav-btn-bgcolor);
-        color: var(--text-color);
-        border-radius: 1rem;
+      .navbar__item {
+        a {
+          display: block;
+          padding: 0.5rem 1rem;
+          background-color: var(--nav-btn-bgcolor);
+          color: var(--text-color);
+          border-radius: 1rem;
+          width: 100%;
+          font-size: 14pt;
+          transition: 0.3s ease;
+
+          &:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.705);
+          }
+
+          @media screen and (max-width: 950px) {
+            font-size: 12pt;
+          }
+        }
+      }
+
+      &.active {
+        position: absolute;
         width: 100%;
-        font-size: 14pt;
-        transition: 0.3s ease;
-        &:hover {
-          text-shadow: 0 0 8px rgba(255, 255, 255, 0.705);
+        height: 100vh;
+        top: 40px;
+        left: 0;
+        background-color: rgba(17, 17, 17, 0.952);
+        backdrop-filter: blur(12px);
+        z-index: -1;
+        flex-direction: column;
+        padding: 80px 0;
+        justify-content: space-evenly;
+
+        .navbar__item {
+          a {
+            background-color: black !important;
+            font-size: 1.2rem;
+            border-radius: 0;
+            padding: 1rem 2rem;
+          }
         }
       }
     }
@@ -76,14 +109,14 @@
       /* Dropdown Button */
       .dropbtn {
         background-color: transparent;
-        width: 30px;
+        width: 50px;
         border: none;
         display: flex;
         gap: 5px;
         align-items: center;
 
         img {
-          width: 100%;
+          width: 60%;
           -webkit-user-drag: none;
         }
 
@@ -100,7 +133,7 @@
         background-color: var(--primary-blur-bgcolor);
         padding: 1px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        right: -50%;
+        right: 0;
         bottom: -50%;
         margin-bottom: -124px;
         z-index: 1;
@@ -181,11 +214,18 @@
     font-size: 3rem;
     letter-spacing: 2px;
     font-family: "Alkatra", cursive, "Montserrat";
+
+    @media screen and (max-width: 550px) {
+      font-size: 2rem;
+    }
   }
 
   p {
     font-size: 14pt;
     max-width: 700px;
+    @media screen and (max-width: 550px) {
+      font-size: 12pt;
+    }
   }
 
   .banner__btn {
@@ -246,6 +286,11 @@
   .main__about {
     color: var(--secondary-text);
     position: relative;
+    font-size: 1.3rem;
+
+    @media screen and (max-width: 550px) {
+      font-size: 1rem;
+    }
   }
 }
 

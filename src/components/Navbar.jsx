@@ -3,8 +3,9 @@ import SelectLangBtn from "./SelectLangBtn";
 import { useEffect, useState } from "react";
 
 const Navbar = ({ lang, setLang, isVisible }) => {
+  const [width, setWidth] = useState(0);
   const [isDark, setIsDark] = useState(false);
-  const [showBurgerMenu, setShowBurgerMenu] = useState(true);
+  const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
 
   // Translations
@@ -17,6 +18,28 @@ const Navbar = ({ lang, setLang, isVisible }) => {
     navbarItems = ["Главный", "Портфолио", "Документы", "Контакт"];
   } else throw new Error("Something went wrong with language!");
   const navbarLinks = ["#main", "#portfolio", "#documents", "#contact"];
+
+  // TODO: make responsive
+  useEffect(() => {
+    if (width < 880) {
+      setShowBurgerMenu(true);
+    } else {
+      setShowBurgerMenu(false);
+    }
+  }, [width]);
+
+  const getWindowWidth = () => {
+    return window.innerWidth;
+  };
+
+  const setWindowWidth = () => {
+    setWidth(getWindowWidth());
+  };
+
+  useEffect(() => {
+    setWindowWidth();
+    window.addEventListener("resize", setWindowWidth);
+  }, []);
 
   // handle Modes
   useEffect(() => {
@@ -66,18 +89,26 @@ const Navbar = ({ lang, setLang, isVisible }) => {
   return (
     // <!-- NAVBAR SECTION -->
     // Initially navbar is invisible
-    <nav className={`navbar ${!isVisible ? "invisible" : ""} has-transition`}>
+    <nav
+      className={`navbar ${
+        !isVisible && !isOpened ? "invisible" : ""
+      } has-transition`}
+    >
       {/* <img src="./assets/logo.png" alt="Korxona Logosi" class="navbar__logo" /> */}
-      <h2 className="navbar__logo">MoorfoTech</h2>
+      <h2 className="navbar__logo">
+        {getWindowWidth() < 400 ? "MT" : "MoorfoTech"}
+      </h2>
 
       <div className="navbar__menu">
-        <ul className="navbar__list">
+        <ul
+          className={`navbar__list ${isOpened ? "active" : ""}`}
+          onClick={() => {
+            isOpened && setIsOpened(false);
+          }}
+        >
           {(!showBurgerMenu || isOpened) &&
             navbarItems.map((navbarItem, index) => (
-              <li
-                className={`navbar__item ${isOpened ? "active" : ""}`}
-                key={index}
-              >
+              <li className="navbar__item" key={index}>
                 <a href={navbarLinks[index]}>{navbarItem}</a>
               </li>
             ))}
@@ -93,12 +124,14 @@ const Navbar = ({ lang, setLang, isVisible }) => {
           )}
         </button>
         {/* Burger Menu */}
-        <button
-          className="navbar__burger-btn"
-          onClick={() => setIsOpened(!isOpened)}
-        >
-          {showBurgerMenu && <i className="fa-solid fa-bars fa_icon"></i>}
-        </button>
+        {showBurgerMenu && (
+          <button
+            className="navbar__burger-btn"
+            onClick={() => setIsOpened(!isOpened)}
+          >
+            <i className="fa-solid fa-bars fa_icon"></i>
+          </button>
+        )}
       </div>
     </nav>
   );
