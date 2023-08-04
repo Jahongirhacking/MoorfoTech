@@ -2,6 +2,8 @@
 
 :root {
   --nav-btn-bgcolor: #13424e61;
+  --card-bgcolor: linear-gradient(225deg, #cacaca, #f0f0f0);
+  --card-shadow: -20px 20px 60px #bebebe, 20px -20px 60px #ffffff;
 }
 
 .navbar {
@@ -53,7 +55,13 @@
       }
     }
 
-    .toggle-mode-btn {
+    .navbar__toggle-mode-btn {
+      background-color: transparent;
+      color: var(--text-color);
+      width: 50px;
+    }
+
+    .navbar__burger-btn {
       background-color: transparent;
       color: var(--text-color);
       width: 50px;
@@ -215,8 +223,10 @@
     font-weight: 800;
     text-align: center;
     border-radius: 10px;
-    background: linear-gradient(225deg, #cacaca, #f0f0f0);
-    box-shadow: -20px 20px 60px #bebebe, 20px -20px 60px #ffffff;
+    // background: linear-gradient(225deg, #cacaca, #f0f0f0);
+    // box-shadow: -20px 20px 60px #bebebe, 20px -20px 60px #ffffff;
+    background: var(--card-bgcolor);
+    box-shadow: var(--card-shadow);
 
     &:hover {
       box-shadow: 0 0 3px var(--primary-shadow-color);
@@ -224,7 +234,7 @@
 
     .fa_icon {
       font-size: 50px;
-      color: var(--primary-color) !important;
+      color: var(--primary-text) !important;
     }
 
     p {
@@ -298,10 +308,11 @@
         .portfolio__btn {
           padding: 0.5rem 1rem;
           width: fit-content;
-          color: var(--primary-color);
-          border: 1px solid var(--primary-color);
+          color: var(--primary-text);
+          border: 1px solid var(--primary-text);
           font-weight: 600;
           margin: auto;
+          background-color: var(--secondary-color);
 
           &:hover {
             background-color: var(--primary-color);
@@ -343,8 +354,8 @@
     width: 100%;
     margin: auto;
     color: var(--secondary-text);
-    background: linear-gradient(315deg, #cacaca, #f0f0f0);
-    box-shadow: -8px -8px 16px #bebebe, 8px 8px 16px #ffffff;
+    background: var(--card-bgcolor);
+    box-shadow: var(--card-shadow);
 
     .documents__caption {
       white-space: nowrap;

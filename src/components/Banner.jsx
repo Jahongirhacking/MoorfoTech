@@ -32,7 +32,7 @@ const Banner = ({ lang }) => {
       </p>
       <a
         className="banner__btn btn has-transition"
-        href="#"
+        href="#portfolio"
         data-aos="fade-up"
         data-aos-duration="1500"
       >

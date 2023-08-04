@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import flagUzb from "../assets/flags/flag-of-Uzbekistan.png";
 import flagUsa from "../assets/flags/flag-of-United-States-of-America.png";
 import flagRus from "../assets/flags/flag-of-Russia.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,15 +16,26 @@ const SelectLangBtn = ({ lang, setLang }) => {
   ];
   const currentFlag = countries.find((country) => country.lang === lang).flag;
 
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
+
   const changeLanuage = (e, lang) => {
     e.stopPropagation();
     setLang(lang);
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    window.addEventListener("click", () => {
+      setIsOpen(false);
+    });
+  }, []);
+
   return (
     <div className="dropdown">
-      <button className="dropbtn" onClick={() => setIsOpen((prev) => !prev)}>
+      <button className="dropbtn" onClick={toggleDropdown}>
         <img src={currentFlag} alt="flag of country" />
         <FontAwesomeIcon
           icon={isOpen ? faChevronUp : faChevronDown}

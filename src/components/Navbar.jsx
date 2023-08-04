@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import SelectLangBtn from "./SelectLangBtn";
+import { useEffect, useState } from "react";
 
 const Navbar = ({ lang, setLang, isVisible }) => {
+  const [isDark, setIsDark] = useState(false);
+  const [showBurgerMenu, setShowBurgerMenu] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
+
+  // Translations
   let navbarItems = [];
   if (lang === "uz") {
     navbarItems = ["Asosiy", "Portfolio", "Hujjatlar", "Bog'lanish"];
@@ -12,6 +18,51 @@ const Navbar = ({ lang, setLang, isVisible }) => {
   } else throw new Error("Something went wrong with language!");
   const navbarLinks = ["#main", "#portfolio", "#documents", "#contact"];
 
+  // handle Modes
+  useEffect(() => {
+    if (isDark) {
+      // LightMode
+      document.documentElement.style.setProperty(
+        "--secondary-color",
+        "#0c0c0c"
+      );
+      document.documentElement.style.setProperty("--primary-text", "white");
+      document.documentElement.style.setProperty("--secondary-text", "white");
+
+      // Cards
+      document.documentElement.style.setProperty(
+        "--card-bgcolor",
+        "linear-gradient(225deg, #1b1b1b, #202020)"
+      );
+      document.documentElement.style.setProperty(
+        "--card-shadow",
+        "-5px 5px 15px #161616, 5px -5px 15px #262626"
+      );
+    } else {
+      // DarkMode
+      document.documentElement.style.setProperty(
+        "--secondary-color",
+        "aliceblue"
+      );
+      document.documentElement.style.setProperty("--primary-text", "#0e3842");
+      document.documentElement.style.setProperty("--secondary-text", "black");
+
+      // Cards
+      document.documentElement.style.setProperty(
+        "--card-bgcolor",
+        "linear-gradient(225deg, #cacaca, #f0f0f0)"
+      );
+      document.documentElement.style.setProperty(
+        "--card-shadow",
+        "-20px 20px 60px #bebebe, 20px -20px 60px #ffffff"
+      );
+    }
+  }, [isDark]);
+
+  const handleMode = () => {
+    setIsDark(!isDark);
+  };
+
   return (
     // <!-- NAVBAR SECTION -->
     // Initially navbar is invisible
@@ -21,18 +72,32 @@ const Navbar = ({ lang, setLang, isVisible }) => {
 
       <div className="navbar__menu">
         <ul className="navbar__list">
-          {navbarItems.map((navbarItem, index) => (
-            <li className="navbar__item" key={index}>
-              <a href={navbarLinks[index]}>{navbarItem}</a>
-            </li>
-          ))}
+          {(!showBurgerMenu || isOpened) &&
+            navbarItems.map((navbarItem, index) => (
+              <li
+                className={`navbar__item ${isOpened ? "active" : ""}`}
+                key={index}
+              >
+                <a href={navbarLinks[index]}>{navbarItem}</a>
+              </li>
+            ))}
         </ul>
         {/* Change Language */}
         <SelectLangBtn lang={lang} setLang={setLang} />
         {/* <!-- Dark and Light Mode --> */}
-        <button className="toggle-mode-btn">
-          <i className="fa-solid fa-sun fa_icon destroyed"></i>
-          <i className="fa-solid fa-moon fa_icon"></i>
+        <button className="navbar__toggle-mode-btn" onClick={handleMode}>
+          {isDark ? (
+            <i className="fa-solid fa-sun fa_icon"></i>
+          ) : (
+            <i className="fa-solid fa-moon fa_icon"></i>
+          )}
+        </button>
+        {/* Burger Menu */}
+        <button
+          className="navbar__burger-btn"
+          onClick={() => setIsOpened(!isOpened)}
+        >
+          {showBurgerMenu && <i className="fa-solid fa-bars fa_icon"></i>}
         </button>
       </div>
     </nav>

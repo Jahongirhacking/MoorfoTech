@@ -45,7 +45,9 @@ const Portfolio = ({ lang }) => {
         {portfolioObj.cards.map((card, index) => (
           <div
             className="portfolio__card has-transition"
-            data-aos="fade-up-right"
+            data-aos={`fade-up${
+              index % 3 === 0 ? "-right" : index % 3 === 1 ? "" : "-left"
+            }`}
             key={index}
           >
             <div

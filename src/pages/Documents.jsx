@@ -48,7 +48,7 @@ const Documents = ({ lang }) => {
           {docObj.cards.map((card, index) => (
             <li
               className="documents__item documents__btn btn has-transition"
-              data-aos="fade-up-right"
+              data-aos={`fade-up-${index % 2 === 0 ? "right" : "left"}`}
               onClick={() => {
                 setCurrentDoc(index);
                 setShowModal(true);
