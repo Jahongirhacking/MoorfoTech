@@ -19,8 +19,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.12'
-          cache: 'npm'
+          node-version: "18.12"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm i
@@ -34,4 +34,4 @@ jobs:
       - name: Deploy to Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: .
