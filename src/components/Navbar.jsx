@@ -48,7 +48,7 @@ const Navbar = ({ lang, setLang, isVisible }) => {
       // LightMode
       document.documentElement.style.setProperty(
         "--secondary-color",
-        "#0c0c0c"
+        "#0c0c0c",
       );
       document.documentElement.style.setProperty("--primary-text", "white");
       document.documentElement.style.setProperty("--secondary-text", "white");
@@ -56,17 +56,17 @@ const Navbar = ({ lang, setLang, isVisible }) => {
       // Cards
       document.documentElement.style.setProperty(
         "--card-bgcolor",
-        "linear-gradient(225deg, #1b1b1b, #202020)"
+        "linear-gradient(225deg, #1b1b1b, #202020)",
       );
       document.documentElement.style.setProperty(
         "--card-shadow",
-        "-5px 5px 15px #161616, 5px -5px 15px #262626"
+        "-5px 5px 15px #161616, 5px -5px 15px #262626",
       );
     } else {
       // DarkMode
       document.documentElement.style.setProperty(
         "--secondary-color",
-        "aliceblue"
+        "aliceblue",
       );
       document.documentElement.style.setProperty("--primary-text", "#0e3842");
       document.documentElement.style.setProperty("--secondary-text", "black");
@@ -74,11 +74,11 @@ const Navbar = ({ lang, setLang, isVisible }) => {
       // Cards
       document.documentElement.style.setProperty(
         "--card-bgcolor",
-        "linear-gradient(225deg, #cacaca, #f0f0f0)"
+        "linear-gradient(225deg, #cacaca, #f0f0f0)",
       );
       document.documentElement.style.setProperty(
         "--card-shadow",
-        "-20px 20px 60px #bebebe, 20px -20px 60px #ffffff"
+        "-20px 20px 60px #bebebe, 20px -20px 60px #ffffff",
       );
     }
   }, [isDark]);
