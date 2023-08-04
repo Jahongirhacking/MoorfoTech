@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const Contact = ({ lang }) => {
+const Contact = ({ lang, contactRef }) => {
   const [feedback, setFeedback] = useState("");
   const [email, setEmail] = useState("");
 
@@ -42,7 +42,7 @@ const Contact = ({ lang }) => {
 
   return (
     // <!-- CONTACT -->
-    <footer id="contact" className="contact">
+    <footer id="contact" className="contact" ref={contactRef}>
       {/* <!-- TITLE --> */}
       <div className="contact__title-field title-field">
         <span className="contact__title-line title-line"></span>
@@ -128,6 +128,7 @@ const Contact = ({ lang }) => {
 
 Contact.propTypes = {
   lang: PropTypes.string,
+  contactRef: PropTypes.object,
 };
 
 export default Contact;

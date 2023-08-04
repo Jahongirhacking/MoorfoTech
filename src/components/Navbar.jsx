@@ -39,6 +39,7 @@ const Navbar = ({ lang, setLang, isVisible }) => {
   useEffect(() => {
     setWindowWidth();
     window.addEventListener("resize", setWindowWidth);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // handle Modes

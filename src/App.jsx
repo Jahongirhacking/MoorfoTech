@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.scss";
 import Navbar from "./components/Navbar";
 import Banner from "./components/Banner";
@@ -14,21 +14,22 @@ import { useEffect } from "react";
 function App() {
   // Languages: uz, en, ru
   const [isVisible, setIsVisible] = useState(false);
+  const [isArrowSticky, setIsArrowSticky] = useState(false);
   const [lang, setLang] = useState("uz");
+  const contactRef = useRef(null);
 
   const handleScroll = () => {
+    const { current: contact } = contactRef;
     //   Make Navbar visible
     if (window.scrollY >= 70) {
       setIsVisible(true);
       // Todo: Make arrow up sticky
-      //   const offsetToFooter = footer.offsetTop - arrowUpBtn.offsetHeight - 20;
-      //   if (window.scrollY + window.innerHeight < offsetToFooter) {
-      //     arrowUpBtn.style.position = "fixed";
-      //     arrowUpBtn.style.bottom = "20px";
-      //   } else {
-      //     arrowUpBtn.style.position = "absolute";
-      //     arrowUpBtn.style.bottom = `${footer.offsetHeight + 20}px`;
-      //   }
+      const offsetToFooter = contact.offsetTop - 70;
+      if (window.scrollY + window.innerHeight < offsetToFooter) {
+        setIsArrowSticky(false);
+      } else {
+        setIsArrowSticky(true);
+      }
     } else {
       setIsVisible(false);
     }
@@ -46,8 +47,10 @@ function App() {
       <Main lang={lang} />
       <Portfolio lang={lang} />
       <Documents lang={lang} />
-      {isVisible && <ArrowUpBtn />}
-      <Contact lang={lang} />
+      {isVisible && (
+        <ArrowUpBtn isArrowSticky={isArrowSticky} refContact={contactRef} />
+      )}
+      <Contact lang={lang} contactRef={contactRef} />
     </>
   );
 }
