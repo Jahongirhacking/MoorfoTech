@@ -1,33 +1,67 @@
-const Contact = () => {
+import { useState } from "react";
+import PropTypes from "prop-types";
+
+const Contact = ({ lang }) => {
+  const [feedback, setFeedback] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleForm = (e) => {
+    e.preventDefault();
+    // Some Code
+    console.log(feedback, email);
+    console.log("Data is sent to the backend");
+  };
+
+  const footerObj = {};
+  if (lang === "uz") {
+    footerObj.title = "Bog`lanish";
+    footerObj.info =
+      "Savol va murojaatlaringiz bo'lsa ushbu manzillarga yo'llashingiz mumkin. Takliflar uchun oldindan rahmat!";
+    footerObj.feedbackPlaceholder = "Fikr qoldiring...";
+    footerObj.emailPlaceholder = "Emailingiz...";
+    footerObj.send = "Yuborish";
+    footerObj.location =
+      "Qashqadaryo viloyati, G`uzor tumani, Tinchlik mahallasi";
+  } else if (lang === "en") {
+    footerObj.title = "Contact";
+    footerObj.info =
+      "If you have questions and requests, you can send them to these addresses. Thanks in advance for the suggestions!";
+    footerObj.feedbackPlaceholder = "Leave feedback...";
+    footerObj.emailPlaceholder = "Your email...";
+    footerObj.send = "Send";
+    footerObj.location = "Tinchlik mahalla, Guzor region, Kashkadarya district";
+  } else if (lang === "ru") {
+    footerObj.title = "Контакт";
+    footerObj.info =
+      "Если у вас есть вопросы и пожелания, вы можете отправить их по этим адресам. Заранее спасибо за предложения!";
+    footerObj.feedbackPlaceholder = "Оставить отзыв...";
+    footerObj.emailPlaceholder = "Ваш э-почта...";
+    footerObj.send = "Отправить";
+    footerObj.location = "Тинчлик, Гузорский район, Кашкадарьинская область";
+  }
+
   return (
     // <!-- CONTACT -->
     <footer id="contact" className="contact">
       {/* <!-- TITLE --> */}
       <div className="contact__title-field title-field">
         <span className="contact__title-line title-line"></span>
-        <h1 className="contact__title title">Bog`lanish</h1>
+        <h1 className="contact__title title">{footerObj.title}</h1>
         <span className="contact__title-line title-line"></span>
       </div>
       <ul className="contact__address-list">
         <li>
           <ul className="contact__address-item">
-            <li>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-              voluptate, saepe sed quidem maiores ratione hic consectetur quod
-              atque commodi.
-            </li>
-            <li>
-              &copy; Copyright Jahongir Hayitov
-              <span id="current-year"></span>
-            </li>
+            <li>{footerObj.info}</li>
+            <li>&copy; Copyright Jahongir Hayitov 2023</li>
           </ul>
         </li>
         <li>
           <ul className="contact__address-item">
             <li>
               <a href="#">
-                <i className="fa-solid fa-location-dot"></i> Qashqadaryo
-                viloyati, G`uzor tumani, Tinchlik mahallasi
+                <i className="fa-solid fa-location-dot"></i>{" "}
+                {footerObj.location}
               </a>
             </li>
             <li>
@@ -36,7 +70,7 @@ const Contact = () => {
               </a>
             </li>
             <li>
-              <a href="mailto:J*******@gmail.com">
+              <a href="mailto:Jahongirhacking@gmail.com">
                 <i className="fa-solid fa-envelope"></i>{" "}
                 Jahongirhacking@gmail.com
               </a>
@@ -46,9 +80,22 @@ const Contact = () => {
         <li>
           <ul className="contact__address-item">
             <form className="contact__form">
-              <input type="text" placeholder="Izoh qoldiring" />
-              <input type="email" placeholder="email" />
-              <button className="form__btn btn has-transition">Yuborish</button>
+              <input
+                type="text"
+                placeholder={footerObj.feedbackPlaceholder}
+                onChange={(e) => setFeedback(e.target.value)}
+              />
+              <input
+                type="email"
+                placeholder={footerObj.emailPlaceholder}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button
+                className="form__btn btn has-transition"
+                onClick={handleForm}
+              >
+                {footerObj.send}
+              </button>
             </form>
             <ul className="contact__social-links">
               <li>
@@ -77,6 +124,10 @@ const Contact = () => {
       </ul>
     </footer>
   );
+};
+
+Contact.propTypes = {
+  lang: PropTypes.string,
 };
 
 export default Contact;
